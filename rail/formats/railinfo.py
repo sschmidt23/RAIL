@@ -11,7 +11,7 @@ Info_ = namedtuple('Info', ['origin', 'scope', 'content'])
 # Any Info_ object is just a little wrapper for some content.
 # `scope` would represent something like "public" or "private", so we could ensure that `Creator`s, `Estimator`s, and `Evaluator`s can only use information that they're supposed to, like a backup system to blinding the experiment.
 # I'm still not sure what "origin" would look like, but all information should come with some indicator of how it was made, even if that information does not get passed to the `Creator`s, `Estimator`s, and `Evaluator`s.
-# On the other hand, it may be better to keep that away from railinfo.Info_ to maintain blinding. . .
+# On the other hand, it may be better to keep the provenance away from railinfo.Info_ to maintain blinding, instead having `Public`, `Private`, etc. be the subclasses of the RAILInfo object.
 
 class RAILInfo(object):
 

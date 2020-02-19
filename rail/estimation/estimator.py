@@ -5,12 +5,11 @@ A superclass for estimators of redshift posterior PDFs
 from __future__ import absolute_import
 __all__ = ['Estimator']
 
-import qp
 import rail
 from rail.formats import Public
 from rail.formats import Prior
 from rail.formats import Data
-from rail.formats import Result
+from rail.formats import PDFs
 
 
 class Estimator(object):
@@ -31,7 +30,7 @@ class Estimator(object):
         """
         self.name = name
 
-    def prepare(self, public_info, **kwds):
+    def prepare(self, public_info, **kwargs):
         """
         Trains and/or tunes prior information based on available external information
 
@@ -54,7 +53,7 @@ class Estimator(object):
         prior_info = rail.formats.Prior()
         return(prior_info)
 
-    def estimate(self, data, prior_info, **kwds):
+    def estimate(self, data, prior_info, **kwargs):
         """
         Estimates redshift posterior PDFs of a galaxy sample with given data and requisite prior information
 
@@ -67,12 +66,12 @@ class Estimator(object):
 
         Returns
         -------
-        estimates: rail.formats.Result object
+        estimates: rail.formats.PDFs object
             redshift posterior PDFs for the input data set
 
         Notes
         -----
-        It might make sense for rail.formats.Result to actually be a qp.ensemble.Ensemble object (or an improved future version thereof) so the estimated redshift posteriors can remain in their native format and be easily convertible without reinventing the wheel on the metrics I/O.
+        It might make sense for rail.formats.PDFs to actually be a qp.ensemble.Ensemble object (or an improved future version thereof) so the estimated redshift posteriors can remain in their native format and be easily convertible without reinventing the wheel on the metrics I/O.
         """
-        estimates = rail.formats.Result()
+        estimates = rail.formats.PDFs()
         return(estimates)
