@@ -48,7 +48,20 @@ class RAILInfo(object):
         self.contents[key] = value
         return
 
-    def write(self, fileloc):
+    def read(self, fileloc, scope="public"):
+        """
+        Read a RAILInfo object from a file
+
+        Parameters
+        ----------
+        fileloc: string
+            where to find the file
+        scope: string, optional
+            "public" or "private"; None is equivalent to all
+        """
+        pass
+
+    def write(self, fileloc, scope=None):
         """
         Saves the RAILInfo object
 
@@ -56,5 +69,7 @@ class RAILInfo(object):
         ----------
         fileloc: string
             where to save the file
+        scope: string, optional
+            "public" or "private"; None is equivalent to all
         """
         pass
