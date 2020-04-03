@@ -30,7 +30,7 @@ class Estimator(object):
         """
         self.name = name
 
-    def prepare(self, public_info, **kwargs):
+    def prep_prior(self, public_info, from_file='', **kwargs):
         """
         Trains and/or tunes prior information based on available external information
 
@@ -38,6 +38,8 @@ class Estimator(object):
         ----------
         public_info: rail.formats.Public object
             all external information available to the rail.estimator.Estimator object
+        from_file: string, optional
+            if reading the prior from a file, location of file
 
         Returns
         -------
