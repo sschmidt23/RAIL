@@ -8,8 +8,9 @@ import numpy as np
 from scipy.stats import norm
 from rail.estimation.estimator import Estimator as BaseEstimation
 
+
 class randomPZ(BaseEstimation):
-   
+
     def __init__(self, base_config, config_dict):
         """
         Parameters:
@@ -18,8 +19,8 @@ class randomPZ(BaseEstimation):
           dictionary of all variables read in from the run_params
           values in the yaml file
         """
-        super().__init__(base_config=base_config,config_dict=config_dict)
-        
+        super().__init__(base_config=base_config, config_dict=config_dict)
+
         inputs = self.config_dict['run_params']
 
         self.width = inputs['rand_width']
@@ -34,11 +35,11 @@ class randomPZ(BaseEstimation):
         print("I don't need to train!!!")
         pass
 
-    def run_photoz(self,test_data):
+    def run_photoz(self, test_data):
         print("running photoz's...")
         pdf = []
 
-        #allow for either format for now
+        # allow for either format for now
         try:
             d = test_data['i_mag']
         except:
@@ -49,5 +50,5 @@ class randomPZ(BaseEstimation):
         self.zgrid = np.linspace(0., self.zmax, self.nzbins)
         for i in range(numzs):
             pdf.append(norm.pdf(self.zgrid, zmode[i], widths[i]))
-        pz_dict ={'zmode':zmode, 'pz_pdf':pdf}
+        pz_dict ={'zmode': zmode, 'pz_pdf': pdf}
         return pz_dict

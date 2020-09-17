@@ -5,20 +5,20 @@ read in fromfile and pdf width set to base_width*(1+zmode).
 """
 
 import numpy as np
-from numpy import inf
+# from numpy import inf
 import sklearn.neural_network as sknn
 from sklearn.preprocessing import StandardScaler
 from scipy.stats import norm
-
 from rail.estimation.estimator import Estimator as BaseEstimation
 
+
 def make_color_data(data_dict):
-    """                                                                     
-    make a dataset consisting of the i-band mag and the five colors       
-    Returns:                                       
-    --------                                                    
-    input_data: (nd-array)                                        
-    array of imag and 5 colors                                        
+    """
+    make a dataset consisting of the i-band mag and the five colors
+    Returns:
+    --------
+    input_data: (nd-array)
+    array of imag and 5 colors
     """
     input_data = data_dict['mag_i_lsst']
     bands = ['u','g','r','i','z','y']
@@ -30,11 +30,11 @@ def make_color_data(data_dict):
         band2 = data_dict[f'mag_{bands[i+1]}_lsst']
         #band2err = data_dict[f'mag_err_{bands[i+1]}_lsst']
         #for j,xx in enumerate(band1):
-        #    if np.isclose(xx,99.,atol=.01):
+        #    if np.isclose(xx, 99., atol=.01):
         #        band1[j] = band1err[j]
         #        band1err[j] = 1.0
         #for j,xx in enumerate(band2):
-        #    if np.isclose(xx,99.,atol=0.01):
+        #    if np.isclose(xx, 99., atol=0.01):
         #        band2[j] = band2err[j]
         #        band2err[j] = 1.0
         input_data = np.vstack((input_data, band1-band2))
@@ -55,6 +55,8 @@ class simpleNN(BaseEstimation):
     and then put an error of width*(1+zb).  We'll do a "real" NN
     photo-z later.
     """
+
+
     def __init__(self,base_config, config_dict):
         """
         Parameters:
@@ -64,9 +66,8 @@ class simpleNN(BaseEstimation):
           values in the yaml file
         """
 
-        super().__init__(base_config=base_config,config_dict=config_dict)
+        super().__init__(base_config=base_config, config_dict=config_dict)
         inputs = self.config_dict['run_params']
-        
         self.width = inputs['width']
         self.zmin = inputs['zmin']
         self.zmax = inputs['zmax']
@@ -83,10 +84,10 @@ class simpleNN(BaseEstimation):
         input_data = regularize_data(color_data)
         simplenn = sknn.MLPRegressor(hidden_layer_sizes=(12,12),
                                      activation='tanh',solver='lbfgs')
-        simplenn.fit(input_data,speczs)
+        simplenn.fit(input_data, speczs)
         self.model = simplenn
         
-    def run_photoz(self,test_data):
+    def run_photoz(self, test_data):
         color_data = make_color_data(test_data)
         input_data = regularize_data(color_data)
         zmode = self.model.predict(input_data)
@@ -94,6 +95,6 @@ class simpleNN(BaseEstimation):
         widths = self.width*(1.0+zmode)
         self.zgrid = np.linspace(self.zmin,self.zmax,self.nzbins)
         for i,zb in enumerate(zmode):
-            pdfs.append(norm.pdf(self.zgrid,zb,widths[i]))
-        pz_dict = {'zmode':zmode, 'pz_pdf':pdfs}
+            pdfs.append(norm.pdf(self.zgrid, zb, widths[i]))
+        pz_dict = {'zmode': zmode, 'pz_pdf': pdfs}
         return pz_dict
