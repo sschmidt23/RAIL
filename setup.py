@@ -23,7 +23,8 @@ setup(
         "Programming Language :: Python"
         ],
     install_requires=['numpy',
-                      'h5py'
+                      'h5py',
+                      'scipy',
                       ],
     python_requires='>=3.5'
 )
