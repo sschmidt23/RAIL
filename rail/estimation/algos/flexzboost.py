@@ -18,7 +18,7 @@ def make_color_data(data_dict):
     """
     make a dataset consisting of the i-band mag and the five colors
     Returns:
-    -------- 
+    --------
     input_data: (nd-array)
       array of imag and 5 colors
     """
@@ -30,12 +30,12 @@ def make_color_data(data_dict):
         band1err = data_dict[f'mag_err_{bands[i]}_lsst']
         band2 = data_dict[f'mag_{bands[i+1]}_lsst']
         band2err = data_dict[f'mag_err_{bands[i+1]}_lsst']
-        for j,xx in enumerate(band1):
-            if np.isclose(xx, 99., atol=.01):
+        for j,s_band in enumerate(band1):
+            if np.isclose(s_band, 99., atol=.01):
                 band1[j] = band1err[j]
                 band1err[j] = 1.0
-        for j,xx in enumerate(band2):
-            if np.isclose(xx, 99., atol=0.01):
+        for j,s_band in enumerate(band2):
+            if np.isclose(s_band, 99., atol=0.01):
                 band2[j] = band2err[j]
                 band2err[j] = 1.0
 
@@ -83,7 +83,7 @@ class FZBoost(BaseEstimation):
     @staticmethod
     def partition_data(fz_data,sz_data,trainfrac):
         """
-        make a random partition of the training data into training and 
+        make a random partition of the training data into training and
         validation, validation data will be used to determine bump
         thresh and sharpen parameters.
         """
@@ -141,7 +141,7 @@ class FZBoost(BaseEstimation):
         model.sharpen_alpha=bestsharp
         self.model = model
 
-        
+
     def run_photoz(self, test_data):
         print("running photoz's...")
         color_data = make_color_data(test_data)
