@@ -94,7 +94,7 @@ class simpleNN(BaseEstimation):
         pdfs = []
         widths = self.width*(1.0+zmode)
         self.zgrid = np.linspace(self.zmin,self.zmax,self.nzbins)
-        for i,zb in enumerate(zmode):
-            pdfs.append(norm.pdf(self.zgrid, zb, widths[i]))
+        for i,z_b in enumerate(zmode):
+            pdfs.append(norm.pdf(self.zgrid, z_b, widths[i]))
         pz_dict = {'zmode': zmode, 'pz_pdf': pdfs}
         return pz_dict

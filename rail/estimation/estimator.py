@@ -5,15 +5,16 @@ from rail.estimation.utils import *
 
 class Estimator(object):
     """
-    The base class from which specific methods should inherit there will be a 
+    The base class from which specific methods should inherit there will be a
     default loading of data (and write out of data?), but each code should have
-    its own 'train' and 'run_photoz' methods that override the default methods 
+    its own 'train' and 'run_photoz' methods that override the default methods
     in the parent class
-    
-    Super/subclass framework stolen shamelessly from 
+
+    Super/subclass framework stolen shamelessly from
     https://github.com/LSSTDESC/tomo_challenge
     """
-    
+
+
     base_dict = 'base.yaml'
     _subclasses = {}
 
@@ -25,7 +26,7 @@ class Estimator(object):
     def __init_subclass__(cls, *args, **kwargs):
         print(f"Found classifier {cls.__name__}")
         cls._subclasses[cls.__name__] = cls
-    
+
     def __init__(self, base_config='base_yaml', config_dict={}):
         if not os.path.exists(base_config):
             raise FileNotFoundError("File base_config="+base_config+" not found")
@@ -50,10 +51,10 @@ class Estimator(object):
         self.test_fmt = self.testfile.split(".")[-1]
         # self.test_data = load_data(self.testfile, self.test_fmt)
         # move reading of test data to main.py so we can loop more easily
-        
+
         self.code_name = type(self).__name__
         self.saveloc = os.path.join(self.outpath, self.code_name + '.hdf5')
-    
+
         self.config_dict = config_dict
 
     def train(self):
@@ -68,7 +69,7 @@ class Estimator(object):
         The main run method for the photo-z, should be implemented in the specific
         subclass
 
-        Input: 
+        Input:
         ------
         data:
           dictionary of all input data
