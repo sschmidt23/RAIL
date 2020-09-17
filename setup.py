@@ -1,12 +1,15 @@
 #from distutils.core import setup
 from setuptools import setup, find_packages
 
+packages = find_packages()
+packages.append('rail.estimation.tests.data')
 setup(
     name='rail',
     version='0.1.dev0',
     author='The LSST DESC PZWG',
     author_email='aimalz@nyu.edu',
-    packages=find_packages(),
+    packages=packages,
+    package_data={"": ["*.hdf5"],"tests":["*.hdf5"],},
     license='BSD 3-Clause License',
     description="Redshift Assessment Infrastructure Layers",
     long_description=open("README.md").read(),
@@ -18,6 +21,8 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python"
         ],
-    install_requires=['numpy'],
+    install_requires=['numpy',
+                      'h5py'
+                      ],
     python_requires='>=3.5'
 )
