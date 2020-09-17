@@ -3,6 +3,8 @@ from setuptools import setup, find_packages
 
 packages = find_packages()
 packages.append('rail.estimation.tests.data')
+packages.append('rail.estimation.tests')
+print(packages)
 setup(
     name='rail',
     version='0.1.dev0',
