@@ -25,6 +25,7 @@ setup(
     install_requires=['numpy',
                       'h5py',
                       'scipy',
+                      'sklearn',
                       ],
     python_requires='>=3.5'
 )
