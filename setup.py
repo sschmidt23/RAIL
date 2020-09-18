@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 packages = find_packages()
-packages.append('rail.estimation.tests.data')
+#packages.append('rail.estimation.tests.data')
 print(packages)
 setup(
     name='rail',
