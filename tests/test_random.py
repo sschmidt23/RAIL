@@ -8,7 +8,7 @@ from rail.estimation.utils import *
 from rail.estimation.algos import randomPZ
 
 #os.chdir(os.path.join(os.path.dirname(inspect.getfile(rail)),'estimation/tests/data') )
-test_base_yaml =  './base.yaml'
+test_base_yaml =  '../tests/base.yaml'
 
 def test_random():
     """
