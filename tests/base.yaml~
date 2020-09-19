@@ -4,4 +4,4 @@ base_config:
   hdf5_groupname: photometry
   chunk_size: 1000
   configpath: ./configs
-  outpath: ./results
+  outpath: ./tests/results
