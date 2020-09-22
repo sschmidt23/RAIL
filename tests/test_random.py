@@ -23,6 +23,3 @@ def test_random():
     assert end == pz.num_rows
     xinputs = inputs['run_params']
     assert len(pz.zgrid) == np.int32(xinputs['nzbins'])
-
-if __name__ == "__main__":
-    test_random()
