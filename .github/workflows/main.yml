@@ -30,9 +30,9 @@ jobs:
         pip install flake8
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: install Rail
-       run: |
-         python setup.py install
-         pip install .
+      run: |
+        python setup.py install
+        pip install .
     - name: Lint with pylint
       run: |
         pip install pylint
