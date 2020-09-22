@@ -5,7 +5,7 @@ name: rail
 
 on:
   push:
-    branches: [issue/3/estimation-template, master, $default-branch ]
+    branches: [issue/3/estimation-template, u/sschmidt23/testcodecov ]
   pull_request:
     branches: [issue/3/estimation-template, master, $default-branch ]
 
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.7]
 
     steps:
     - uses: actions/checkout@v2
@@ -27,11 +27,21 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install numpy scipy pyyaml h5py pandas .
-        pip install flake8 pytest
+        pip install flake8 pytest pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest (trial)
       run: |
-        pytest
+        pytest --cov=./ --cov-report=xml
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: true
+
+
     - name: Lint with pylint
       run: |
         pip install pylint
