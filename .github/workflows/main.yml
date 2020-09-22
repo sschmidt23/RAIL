@@ -31,7 +31,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: install Rail
       run: |
-        cd ..
+        python setup.py install
         pip install .
     - name: install test dependencies
       run: |
