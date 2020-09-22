@@ -27,12 +27,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install numpy scipy pyyaml h5py pandas .
-        pip install flake8 pytest pytest-cov black==20.8b1
+        pip install flake8 pytest pytest-cov 
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest (trial)
       run: |
-        black --check ./rail ./tests
-        pytest --cov=./ --cov-report=xml
+        pytest --cov=./ --cov-report=xml --durations=0
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
