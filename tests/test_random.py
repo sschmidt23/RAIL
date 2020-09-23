@@ -32,6 +32,7 @@ def test_simpleNN():
                              'nzbins': 301}}
 
     pz=sklearn_nn.simpleNN(test_base_yaml, inputs)
+    pz.inform()
     for _, end, data in iter_chunk_hdf5_data(pz.testfile, pz._chunk_size,
                                              pz.hdf5_groupname):
         pz_dict = pz.estimate(data)
